@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>LangChain Agent 开发问答助手</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; background: #f7f8fa; }
+    h1 { color: #1f6feb; }
+    .box { display: flex; gap: 10px; margin: 20px 0; }
+    input { flex: 1; padding: 12px; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; }
+    button { padding: 12px 24px; font-size: 15px; background: #1f6feb; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #1857b6; }
+    #answer { background: #fff; border: 1px solid #e2e4e8; border-radius: 8px; padding: 16px; min-height: 120px; line-height: 1.7; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>🦜 LangChain Agent 开发问答助手</h1>
+  <p>基于 LangChain 官方文档：子代理 / 上下文工程 / 模型 / 多智能体</p>
+
+  <div class="box">
+    <input id="question" type="text" placeholder="输入问题，如：多智能体有哪些模式？" onkeydown="if(event.key==='Enter')ask()">
+    <button onclick="ask()">发送</button>
+  </div>
+
+  <div id="answer">在这里输入问题，点发送查看回答…</div>
+
+  <script>
+    async function ask() {
+      const input = document.getElementById('question');
+      const answer = document.getElementById('answer');
+      const q = input.value.trim();
+      if (!q) return;
+      answer.textContent = '思考中…';
+      try {
+        const res = await fetch('/query?q=' + encodeURIComponent(q));
+        const data = await res.json();
+        answer.textContent = data.answer;
+      } catch (e) {
+        answer.textContent = '出错了：' + e;
+      }
+    }
+  </script>
+</body>
+</html>

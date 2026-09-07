@@ -1,0 +1,21 @@
+# 密钥与配置
+.env
+
+# 虚拟环境
+venv/
+env/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 向量库与本地生成数据
+vector_db/
+
+# IDE 与系统
+.idea/
+.vscode/
+.DS_Store
+
+# 日志
+*.log

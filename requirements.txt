@@ -1,0 +1,11 @@
+python-dotenv==1.0.1
+openai>=1.30.0
+langchain
+langchain-community
+langchain-openai==0.1.25
+langchain-text-splitters==0.2.4
+chromadb
+langchain-chroma==0.1.4
+sentence-transformers==2.7.0
+fastapi
+uvicorn[standard]

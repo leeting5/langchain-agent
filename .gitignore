@@ -11,6 +11,7 @@ __pycache__/
 
 # 向量库与本地生成数据
 vector_db/
+answers/
 
 # IDE 与系统
 .idea/

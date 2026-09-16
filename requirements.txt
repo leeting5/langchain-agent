@@ -9,3 +9,6 @@ langchain-chroma==0.1.4
 sentence-transformers==2.7.0
 fastapi
 uvicorn[standard]
+# --- 测试 ---
+pytest
+httpx

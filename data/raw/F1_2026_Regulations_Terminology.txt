@@ -1,0 +1,54 @@
+# F1 2026 Regulations – Terminology Update
+
+来源：F1 官网官方新闻（2025-12-17）
+网址：https://corp.formula1.com/f1-2026-regulations-terminology-update/
+
+## 概述
+
+2026 年是 Formula 1 的巨大转折点，赛车的底盘（chassis）和动力单元（power unit）都将更新，这是这项运动历史上最大规模的一次规则变更。这些变化将重塑车手竞争格局，带来全新的刺激，并为观众奉献精彩绝伦的比赛。以下是值得期待的内容概要。
+
+## 底盘与空气动力学（Chassis and Aerodynamics）
+
+- 更小、更轻（Smaller and lighter）：轴距缩短 200mm（至 3400mm），车宽减少 100mm（至 1900mm），底板宽度削减 150mm，最低重量下降 30kg（至 770kg），所有这些设计都是为了提升赛车的敏捷性和响应速度。
+- 下压力降低（Reduced Downforce）：得益于移除地面效应底板通道（ground-effect floor tunnels），整体下压力降低约 15-30%。
+- 阻力降低（Reduced drag）：整体阻力最高降低 40%。
+- 主动空气动力学（Active aerodynamics）：可移动的前翼和后翼取代了此前的减阻系统（DRS, Drag Reduction System），用于高低下压力构型，在车手最需要的地方提供额外的抓地力和速度。
+- 轮胎（Tyres）：沿用 18 英寸轮毂，但前胎变窄 25mm，后胎变窄 30mm，以减少阻力和重量。
+
+## 动力单元（Power unit）
+
+- 约 50/50 分配（~50/50 Split）：转向约 50% 内燃机（ICE, internal combustion）和 50% 电能的动力分配。
+- 简化的混动（Simplified Hybrid）：移除 MGU-H；MGU-K 功率大幅提升（从 120kW 提升到 350kW），以增强超车能力和直线速度。
+- 可持续燃料（Sustainable Fuel）：赛车将使用先进的可持续燃料，且不影响性能。
+
+## 车手成为主角（Where the driver takes centre stage）
+
+在新一代赛车中，车手比以往任何时候都拥有更多的主导权。关于能量部署（energy deployment）、能量回收（regeneration）和能量保存（conservation）的关键决策，赋予了他们更大的责任。理解车手如何部署和使用这些新的战术元素，对于充分欣赏他们的技术和比赛操控至关重要。
+
+## 我们如何做出这些改变（How we made these changes）
+
+我们与 FIA、各车队和工程师合作制定了这些术语。随后在一组新老车迷中测试了新的术语，以了解他们的看法和接受度。这包括使用可靠的第三方民意调查数据，以及我们 50000 多名成员的社区 "Fan Voice" 的意见。
+
+我们希望避免噱头和行话，深知更简单、更客观、更有意义的语言才是新老车迷都喜欢的。重要的是，新规则的工程特性需要被准确、恰当地表达，因此新术语要能够为分析和赛场解说提供准确而有用的支持。
+
+## 新术语汇总（Summary of new terminology）
+
+### 超车模式（OVERTAKE MODE）
+
+功能：当前方 1 秒内的赛车想要发动超车时，可部署额外动力。它取代了 DRS，辅助赛道上的超车，是一种战术工具，可以一次性使用，也可以在一圈里分阶段使用。
+
+### 助推模式（BOOST MODE）
+
+功能：车手操作的、来自能量回收系统（ERS, Energy Recovery System）的能量部署工具，根据赛道位置可攻可守。按下按钮即可在任何赛道位置获得发动机与电池的最大动力。
+
+### 主动空力（ACTIVE AERO）
+
+功能：前后翼片元件在特定高速路段的角度动态可调，提供弯道（Corner）和直线（Straight）两种模式。它实现了战术层面的适配，并通过更强的赛道抓地力最大化赛车动力的利用。
+
+### 充电（RECHARGE）
+
+功能：车手可以利用制动回收、直道末端收油，甚至仅在部分动力下的弯道中回收的能量为电池充电。
+
+## 季前测试安排
+
+季前测试将首先于 1 月 26 日至 30 日在巴塞罗那-加泰罗尼亚赛道（Circuit de Barcelona-Catalunya）进行私人测试；第二次测试于 2 月 11 日至 13 日在巴林国际赛道（Bahrain International Circuit）进行；巴林国际赛道还将于 2 月 18 日至 20 日举办第三次测试。随后赛季于 3 月 6 日至 8 日在澳大利亚打响。

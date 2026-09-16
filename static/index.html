@@ -2,41 +2,80 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LangChain Agent 开发问答助手</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 知识库问答助手</title>
   <style>
-    body { font-family: "Microsoft YaHei", sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; background: #f7f8fa; }
-    h1 { color: #1f6feb; }
-    .box { display: flex; gap: 10px; margin: 20px 0; }
-    input { flex: 1; padding: 12px; font-size: 15px; border: 1px solid #ccc; border-radius: 6px; }
-    button { padding: 12px 24px; font-size: 15px; background: #1f6feb; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
-    button:hover { background: #1857b6; }
-    #answer { background: #fff; border: 1px solid #e2e4e8; border-radius: 8px; padding: 16px; min-height: 120px; line-height: 1.7; white-space: pre-wrap; }
+    :root{
+      --brand:#2F6BFF; --ink:#152033; --ink2:#637089;
+      --bg:#F6F8FB; --card:#fff; --line:#E6EAF2;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--ink);font-family:"Inter","PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
+    .wrap{max-width:760px;margin:0 auto;padding:32px 20px}
+    h1{font-size:22px;color:var(--brand);margin-bottom:4px}
+    .sub{color:var(--ink2);font-size:13px;margin-bottom:24px}
+    .box{display:flex;gap:10px;margin-bottom:8px}
+    input{flex:1;padding:12px 14px;font-size:15px;border:1px solid var(--line);border-radius:8px;outline:none}
+    input:focus{border-color:var(--brand)}
+    button{padding:12px 24px;font-size:15px;background:var(--brand);color:#fff;border:none;border-radius:8px;cursor:pointer}
+    button:hover{background:#1857b6}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .hint{font-size:12px;color:var(--ink2);margin-bottom:18px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-height:120px;font-size:14.5px;white-space:pre-wrap}
+    .card .thinking{color:#7a8aa5}
+    .srcs{margin-top:14px;font-size:12px;color:var(--ink2)}
+    .srcs b{color:var(--brand)}
+    .err{color:#c0392b;margin-top:12px;font-size:13px}
+    @media(max-width:600px){
+      .box{flex-direction:column}
+      button{width:100%}
+    }
   </style>
 </head>
 <body>
-  <h1>🦜 LangChain Agent 开发问答助手</h1>
-  <p>基于 LangChain 官方文档：子代理 / 上下文工程 / 模型 / 多智能体</p>
+  <div class="wrap">
+    <h1>🏎️ F1 知识库问答助手</h1>
+    <p class="sub">基于 LangChain RAG：中英查询改写 · 语义检索 · 重排 · LLM 生成（知识库来自 FIA/F1 官方与百科资料）</p>
 
-  <div class="box">
-    <input id="question" type="text" placeholder="输入问题，如：多智能体有哪些模式？" onkeydown="if(event.key==='Enter')ask()">
-    <button onclick="ask()">发送</button>
+    <div class="box">
+      <input id="q" type="text" placeholder="输入问题，如：2026 赛季迈凯伦的 1 号车手是谁？" onkeydown="if(event.key==='Enter')ask()">
+      <button id="btn" onclick="ask()">发送</button>
+    </div>
+    <div class="hint">试试：什么是 Active Aero？ / 舒马赫拿过几次冠军？ / 2008 巴西站发生了什么？</div>
+
+    <div class="card" id="answer">在这里输入问题，点发送查看回答…</div>
+    <div class="srcs" id="srcs"></div>
+    <div class="err" id="err"></div>
   </div>
-
-  <div id="answer">在这里输入问题，点发送查看回答…</div>
 
   <script>
     async function ask() {
-      const input = document.getElementById('question');
-      const answer = document.getElementById('answer');
-      const q = input.value.trim();
+      const q = document.getElementById('q').value.trim();
+      const ans = document.getElementById('answer');
+      const err = document.getElementById('err');
+      const btn = document.getElementById('btn');
       if (!q) return;
-      answer.textContent = '思考中…';
+      ans.textContent = '思考中…';
+      ans.className = 'card';
+      err.textContent = '';
+      document.getElementById('srcs').innerHTML = '';
+      btn.disabled = true;
       try {
-        const res = await fetch('/query?q=' + encodeURIComponent(q));
+        const res = await fetch('/query', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({question: q})
+        });
         const data = await res.json();
-        answer.textContent = data.answer;
+        if (!res.ok) { throw new Error(data.detail || data.error || '请求失败'); }
+        ans.textContent = data.answer;
+        document.getElementById('srcs').innerHTML =
+          data.saved ? '<span style="color:#16A37B">✓ 已保存到本地 answers/</span>' : '';
       } catch (e) {
-        answer.textContent = '出错了：' + e;
+        ans.textContent = '';
+        err.textContent = '出错了：' + e;
+      } finally {
+        btn.disabled = false;
       }
     }
   </script>

@@ -10,6 +10,7 @@ src/api/app.py -- FastAPI 知识库问答服务
 """
 import logging
 import os
+import re
 import time
 
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
@@ -106,6 +107,19 @@ def _answer(question: str) -> str:
     return _generator.answer(context, question)
 
 
+# ---------- 保存从句剥离 ----------
+_SAVE_CLAUSE = re.compile(
+    r"把(?:上面|以上|这里)?(?:的)?(?:答案|回答|内容|结果)保存(?:到|至|在)?(?:本地|电脑|文件夹)?"
+    r"|保存(?:上面|以上|这里)?(?:的)?(?:答案|回答|内容|结果)(?:到|至|在)?(?:本地|电脑|文件夹)?"
+)
+
+
+def _strip_save_intent(text: str) -> str:
+    """Remove 'save the answer' clauses so generation stays clean."""
+    text = _SAVE_CLAUSE.sub("", text or "")
+    return text.strip(" ，。、；：: \t\n")
+
+
 # ---------- 接口 ----------
 @app.get("/")
 def index():
@@ -115,8 +129,9 @@ def index():
 
 
 class QueryIn(BaseModel):
-    """POST /query 的请求体（JSON）：{ "question": "..." }。"""
+    """POST /query request body (JSON): {"question": "...", "previous_answer": "..."}."""
     question: str
+    previous_answer: str = ""
 
 
 @app.post("/query")
@@ -129,10 +144,24 @@ def query(payload: QueryIn):
             status_code=400,
             detail=f"输入过长，请控制在 {settings.max_input_chars} 字符内",
         )
+
+    save_wanted = _save_detector.detect(q)
     try:
-        answer = _answer(q)
+        # When the user asks to persist the previous answer, save it directly.
+        if save_wanted and (payload.previous_answer or "").strip():
+            answer = payload.previous_answer.strip()
+            _save_answer(answer)
+            return {"answer": answer, "saved": True}
+
+        clean_q = _strip_save_intent(q)
+        if not clean_q:
+            # The message is only a save request with no content to generate.
+            answer = "已按你的要求保存。"
+        else:
+            answer = _answer(clean_q)
+
         saved = False
-        if _save_detector.detect(q):
+        if save_wanted:
             _save_answer(answer)
             saved = True
         return {"answer": answer, "saved": saved}
